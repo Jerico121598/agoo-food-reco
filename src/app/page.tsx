@@ -2,11 +2,13 @@ import React from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Star, MapPin, Clock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getPopularRestaurants } from "@/data/restaurant/get-popular-restaurants";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const result = await getPopularRestaurants();
@@ -63,6 +65,9 @@ export default async function Home() {
                         <CardTitle className="line-clamp-1 text-lg">
                           {restaurant.name}
                         </CardTitle>
+                        <CardDescription className="text-muted-foreground text-sm">
+                          {restaurant.ownerName}
+                        </CardDescription>
                         <div className="flex items-center space-x-1">
                           <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                           <span className="text-sm font-semibold">
