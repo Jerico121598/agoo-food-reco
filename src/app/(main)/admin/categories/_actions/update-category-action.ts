@@ -11,7 +11,7 @@ export async function updateCategory(
 ) {
   try {
     const validatedData = categoryFormSchema.parse(data);
-    const category = await prisma.category.update({
+    const category = await prisma.menuCategory.update({
       where: { id },
       data: validatedData,
     });

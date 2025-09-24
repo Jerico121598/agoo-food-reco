@@ -8,7 +8,7 @@ export async function updateCategoryStatus(
   status: "ACTIVE" | "INACTIVE",
 ) {
   try {
-    const category = await prisma.category.update({
+    const category = await prisma.menuCategory.update({
       where: { id },
       data: { status },
     });

@@ -1,5 +1,6 @@
 export type Restaurant = {
   id: string;
+  ownerName?: string;
   name: string;
   description: string;
   imageUrl?: string;
@@ -12,6 +13,13 @@ export type Restaurant = {
   totalReviews: number;
   createdAt: string | Date;
   updatedAt: string | Date;
+  categoryId: string;
+  gallery?: Array<{
+    id: string;
+    imageUrl: string;
+    caption?: string | null;
+    createdAt: Date;
+  }>;
 };
 
 export type MenuItem = {
@@ -37,7 +45,7 @@ export type Review = {
   };
 };
 
-export type Category = {
+export type MenuCategory = {
   id: string;
   name: string;
   description?: string;

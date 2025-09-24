@@ -1,7 +1,7 @@
 import { CategoryTable } from "./_components/category-table";
 import { CategoryModal } from "./_components/category-modal";
 import { getCategories } from "@/data/category/get-categories";
-import { Category } from "@/types/restaurant";
+import { MenuCategory } from "@/types/restaurant";
 
 export default async function CategoriesPage() {
   const categories = await getCategories();
@@ -19,7 +19,7 @@ export default async function CategoriesPage() {
             </div>
             <CategoryModal mode="add" />
           </div>
-          <CategoryTable categories={categories.data as Category[]} />
+          <CategoryTable categories={categories.data as MenuCategory[]} />
         </div>
       </div>
     </div>

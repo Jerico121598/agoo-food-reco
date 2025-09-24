@@ -9,14 +9,14 @@ export async function createCategory(data: z.infer<typeof categoryFormSchema>) {
   try {
     const validatedData = categoryFormSchema.parse(data);
 
-    const checkExistName = await prisma.category.findUnique({
+    const checkExistName = await prisma.menuCategory.findUnique({
       where: { name: validatedData.name },
     });
     if (checkExistName) {
       return { error: "Category name already exists" };
     }
 
-    const category = await prisma.category.create({
+    const category = await prisma.menuCategory.create({
       data: validatedData,
     });
     revalidatePath("/admin/categories");

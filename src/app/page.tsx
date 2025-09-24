@@ -3,10 +3,12 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, MapPin, Clock } from "lucide-react";
+import { Star, MapPin, Clock, User } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { getPopularRestaurants } from "@/data/restaurant/get-popular-restaurants";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const result = await getPopularRestaurants();
@@ -41,7 +43,7 @@ export default async function Home() {
         <section className="bg-muted/50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              Popular Restaurants
+              Top 5 Popular Restaurants
             </h2>
             {popularRestaurants.length > 0 ? (
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -76,6 +78,12 @@ export default async function Home() {
                         {restaurant.description}
                       </p>
                       <div className="space-y-2">
+                      <div className="text-muted-foreground flex items-center space-x-2 text-xs">
+                          <User className="h-3 w-3" />
+                          <span className="line-clamp-1">
+                            Owner: {restaurant.ownerName}
+                          </span>
+                        </div>
                         <div className="text-muted-foreground flex items-center space-x-2 text-xs">
                           <MapPin className="h-3 w-3" />
                           <span className="line-clamp-1">

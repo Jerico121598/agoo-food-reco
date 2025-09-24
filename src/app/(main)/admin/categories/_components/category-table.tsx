@@ -23,10 +23,10 @@ import { CategoryModal } from "./category-modal";
 import { getStatusBadgeConfig } from "@/utils/badge-variants";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
-import { Category } from "@/types/restaurant";
+import { MenuCategory } from "@/types/restaurant";
 
 interface CategoryTableProps {
-  categories: Category[];
+  categories: MenuCategory[];
 }
 
 export function CategoryTable({ categories }: CategoryTableProps) {

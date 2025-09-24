@@ -36,10 +36,10 @@ import { categoryFormSchema, CategoryFormData } from "@/schemas";
 import { createCategory } from "../_actions/create-category-action";
 import { updateCategory } from "../_actions/update-category-action";
 import { useRouter } from "next/navigation";
-import { Category } from "@/types/restaurant";
+import { MenuCategory } from "@/types/restaurant";
 
 interface CategoryModalProps {
-  category?: Category;
+  category?: MenuCategory;
   mode: "add" | "edit";
   onSuccess?: () => void;
   children?: ReactNode;
