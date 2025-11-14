@@ -7,12 +7,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { User } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const session = useSession();
   const router = useRouter();
+  const pathName = usePathname();
+  const isAboutPage = pathName === "/about";
+
   const redirectPath =
     session.data?.user?.role === "ADMIN" ? "/admin" : "/user/profile";
   useEffect(() => {
@@ -28,9 +31,11 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 z-50 w-full transition-colors duration-200",
-        isScrolled
-          ? "bg-background/80 shadow-sm backdrop-blur-sm"
-          : "bg-transparent",
+        isAboutPage
+          ? "bg-transparent text-white"
+          : isScrolled
+            ? "bg-background/80 shadow-sm backdrop-blur-sm"
+            : "bg-transparent",
       )}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -44,31 +49,11 @@ export function Header() {
           />
         </Link>
         <nav className="hidden items-center space-x-6 md:flex">
-          <Link
-            href="/"
-            className="text-foreground/60 hover:text-foreground transition-colors"
-          >
-            Home
-          </Link>
-          <Link
-            href="/restaurants"
-            className="text-foreground/60 hover:text-foreground transition-colors"
-          >
-            Restaurants
-          </Link>
-          <Link
-            href="/about"
-            className="text-foreground/60 hover:text-foreground transition-colors"
-          >
-            About
-          </Link>
+          <Link href="/">Home</Link>
+          <Link href="/restaurants">Restaurants</Link>
+          <Link href="/about">About</Link>
 
-          <Link
-            href="/contact"
-            className="text-foreground/60 hover:text-foreground transition-colors"
-          >
-            Contact
-          </Link>
+          <Link href="/contact">Contact</Link>
 
           {session.data?.user ? (
             <Button

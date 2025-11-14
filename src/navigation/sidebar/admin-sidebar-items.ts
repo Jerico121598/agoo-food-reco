@@ -5,6 +5,7 @@ import {
   List,
   MessageCircle,
   Users,
+  File,
 } from "lucide-react";
 
 export interface NavSubItem {
@@ -52,6 +53,11 @@ export const adminSidebarItems: NavGroup[] = [
         title: "Manage Users",
         url: "/admin/users",
         icon: Users,
+      },
+      {
+        title: "Generate Reports",
+        url: "/admin/reports",
+        icon: File,
       },
     ],
   },

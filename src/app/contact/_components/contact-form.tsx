@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,7 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
+import { sendContactMessage } from "../_actions/send-contact-message";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -23,6 +26,8 @@ const formSchema = z.object({
 });
 
 export default function ContactForm() {
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,8 +39,18 @@ export default function ContactForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Handle form submission
-    console.log(values);
+    startTransition(() => {
+      sendContactMessage(values)
+        .then((res) => {
+          if (res.error) {
+            toast.error(res.error);
+            return;
+          }
+          toast.success(res.success || "Message sent successfully");
+          form.reset();
+        })
+        .catch(() => toast.error("Something went wrong. Please try again."));
+    });
   }
 
   return (
@@ -97,8 +112,12 @@ export default function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full bg-green-600">
-          Send Message
+        <Button
+          type="submit"
+          className="w-full bg-green-600"
+          disabled={isPending}
+        >
+          {isPending ? "Sending..." : "Send Message"}
         </Button>
       </form>
     </Form>
